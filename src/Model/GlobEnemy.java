@@ -4,7 +4,7 @@ import Controller.Main;
 
 import java.awt.*;
 
-public class GlobEnemy extends GameFigure {
+public class GlobEnemy extends GameFigure{
     int x, y;
     int size = 40;
     int width, height;
@@ -34,9 +34,7 @@ public class GlobEnemy extends GameFigure {
     }
 
     public GlobEnemy(int size){
-        super();
-        this.x = 100;
-        this.y = 200;
+       super( (int) GlobEnemy.getRandomX(),  (int) GlobEnemy.getRandomY());
         this.size = size;
         width = size;
         height = size/2;
@@ -47,11 +45,6 @@ public class GlobEnemy extends GameFigure {
     public void render(Graphics2D g2) {
         g2.setColor(color);
         g2.setStroke(new BasicStroke(1));
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(new File("monster.png"));
-//        } catch (IOException e) {
-//        }
         g2.fillOval((int) location.x - width/2, (int) location.y - height/2, width, height);
 
     }
@@ -102,6 +95,13 @@ public class GlobEnemy extends GameFigure {
         return size;
     }
 
-
+    public static double getRandomX(){
+        double x =  Math.random()* Main.win.getWidth();
+        return x;
+    }
+    public static double getRandomY(){
+        double y =  Math.random()* (Main.win.getHeight() - 120);
+        return y;
+    }
 
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameData {
@@ -7,7 +8,7 @@ public class GameData {
     public ArrayList<GameFigure> fixedObject = new ArrayList<>();
     public ArrayList<GameFigure> friendObject = new ArrayList<>();
     public ArrayList<GameFigure> enemyObject = new ArrayList<>();
-
+    public ArrayList<GameFigure> UIObject = new ArrayList<>();
 
     public void update() {
 

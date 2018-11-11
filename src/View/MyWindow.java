@@ -36,20 +36,13 @@ public class MyWindow extends JFrame {
         cp.add(BorderLayout.CENTER, canvas);
 
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(2, 1));
-
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(1, 6));
-        infoPanel.add(new JLabel("Lives: "));
-        infoPanel.add(new JLabel("Points:"));
-        infoPanel.add(new JLabel("Bombs:"));
+        bottomPanel.setLayout(new GridLayout(1, 1));
 
 
 
         startButton = new JButton("Start");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(startButton);
-        bottomPanel.add(infoPanel);
         bottomPanel.add(buttonPanel);
         cp.add(BorderLayout.SOUTH, bottomPanel);
         startButton.setFocusable(false);

@@ -21,17 +21,19 @@ public class PlayerCharacter extends GameFigure {
 
     public PlayerCharacter (int x, int y) {
         super(x,y);
-        width = size;
+        width = 64;
         lives = 3;
-        height = size/2;
+        height = 64;
         state = STATE_ALIVE;
+        LoadImage("player.png");
     }
 
     @Override
     public void render(Graphics2D g2) {
-        g2.setColor(color);
-        g2.setStroke(new BasicStroke(2));
-        g2.fillOval((int) location.x - width/2, (int) location.y - height/2, width, height);
+       // g2.setColor(color);
+       // g2.setStroke(new BasicStroke(2));
+       // g2.fillOval((int) location.x - width/2, (int) location.y - height/2, width, height);
+        g2.drawImage(this.image, (int) location.x - width/2, (int) location.y - height/2,  width, height,null);
     }
 
     @Override
@@ -43,22 +45,18 @@ public class PlayerCharacter extends GameFigure {
         }
         if(state == STATE_DYING){
             --lives;
+            NotifyObservers("Die");
             color = Color.ORANGE;
-            while (size > 0) {
-                --size;
-            }
-            if (size == 0){
-                setLocation(Main.win.getWidth()/2, Main.win.getHeight()/2);
+            setLocation(Main.win.getWidth()/2, Main.win.getHeight()/2);
                 if(lives > 0) {
                     state = STATE_ALIVE;
                     hitCount = 0;
-                    size = width;
                 }else {
                     state = STATE_DONE;
                 }
             }
         }
-    }
+
     private void updateState() {
         if (state == STATE_ALIVE) {
             if (hitCount > 0) {

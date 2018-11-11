@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.HealthBar;
 import View.MyWindow;
 
 import javax.swing.*;
@@ -49,24 +50,28 @@ public class Main {
 
     static void initGame() {
         gameData.clear();
+
+        //Construct the player character and its observers
+        HealthBar healthBar = new HealthBar();
         int x = Main.win.getWidth() / 2;
         int y = Main.win.getHeight() - 150;
-        gameData.fixedObject.add(new PlayerCharacter(x, y));
-        gameData.enemyObject.add(new GlobEnemy(150, 300, 50));
-        gameData.enemyObject.add(new GlobEnemy( 200, 120, 25));
+        PlayerCharacter playerCharacter = new PlayerCharacter(x, y);
+        playerCharacter.RegisterObserver(healthBar);
+        //end player init
+
+        gameData.friendObject.add(new SkyBox(1));
+        gameData.fixedObject.add(playerCharacter);
+        gameData.enemyObject.add(new GlobEnemy(50));
+        gameData.enemyObject.add(new GlobEnemy(25));
         gameData.enemyObject.add(new GlobEnemy(30));
+        gameData.UIObject.add(healthBar);
 
     }
 
     static void gameLoop(){
         running = true;
         while(running){
-            if(gameOver) {
-                Font font = new Font("Courier New", Font.PLAIN, 40);
-                gameData.friendObject.add(new Text("Game Over", 200, 200, Color.RED, font));
-                running = false;
-            }
-                long startTime = System.currentTimeMillis();
+               long startTime = System.currentTimeMillis();
 
                 playerInput.processInputEvents();
                 processCollisions();
@@ -108,5 +113,6 @@ public class Main {
 
 
     }
+
 
 }

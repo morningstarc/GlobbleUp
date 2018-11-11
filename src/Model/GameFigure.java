@@ -1,10 +1,12 @@
 package Model;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 
-public abstract class GameFigure {
-
+public abstract class GameFigure implements Subject {
+    BufferedImage image;
     public Point2D.Float location;
     public boolean done = false;
     public int hitCount = 0;
@@ -34,4 +36,51 @@ public abstract class GameFigure {
     public abstract void update();
     public abstract int getCollisionRadius();
     public abstract int getSize();
+
+
+    public BufferedImage LoadImage(String filename)
+    {
+        BufferedImage img = null;
+        try {
+
+            img = ImageIO.read(getClass().getResource("/resources/Images/" + filename));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if(img != null)
+        {
+            this.image = img;
+        }
+        else
+        {
+            System.out.println("The background image didn't load because...");
+        }
+        return img;
+    }
+
+    @Override
+    public void NotifyObservers(String event) {
+        for(int i = 0 ; i < this.observables.size(); i++)
+        {
+
+            observables.get(i).notify(event);
+        }
+    }
+
+
+    //Do not use in a loop, use after a loop.
+    @Override
+    public void RegisterObserver(IObservable observer) {
+          observables.add(observer);
+    }
+
+    @Override
+    public void DeregisterObserver(IObservable observer) {
+        observables.remove(observables.indexOf(observer));
+    }
+
+    public BufferedImage getImage(){
+        return image;
+    }
 }

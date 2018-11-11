@@ -38,18 +38,22 @@ public class MyCanvas extends JPanel {
         g2OffScreen.setBackground(Color.black);  //window background color
         g2OffScreen.clearRect(0,0, width, height);
 
-
-        for(var fig: Main.gameData.fixedObject){
+        for(var fig: Main.gameData.friendObject){
             fig.render(g2OffScreen);
         }
-
-        for(var fig: Main.gameData.friendObject){
+        for(var fig: Main.gameData.fixedObject){
             fig.render(g2OffScreen);
         }
 
         for(var fig: Main.gameData.enemyObject){
             fig.render(g2OffScreen);
         }
+
+        //UI should always be rendered on top
+        for(var fig: Main.gameData.UIObject){
+            fig.render(g2OffScreen);
+        }
+
 
         //Active Render (put buffer image on screen)
         Graphics gOnScreen;
